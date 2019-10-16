@@ -38,4 +38,19 @@ func NewHandler() handler {
 }
 
 func (h handler) ftpHandler(w http.ResponseWriter, req *http.Request) {
+
+	operation, ok := req.URL.Query()[_operationURLParameterKey]
+	if !ok {
+		w.Write([]byte(helpMessage))
+		return
+	}
+
+	dir, ok := req.URL.Query()[_dirURLParamterKey]
+	if !ok {
+		w.Write([]byte("Missing required parameter"))
+		return
+	}
+
+	//fmt.Println(operation, dir)
+
 }

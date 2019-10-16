@@ -2,6 +2,10 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+
+	"github.com/anshal21/ftp-server/operator"
+	ftp "github.com/anshal21/ftp-server/v1"
 )
 
 const (
@@ -23,3 +27,15 @@ var (
 `, _FTPOperationList, _FTPOperationDelete, _FTPOperationGet)
 )
 
+type handler struct {
+	operator operator.Operator
+}
+
+func NewHandler() handler {
+	return handler{
+		operator: ftp.New(),
+	}
+}
+
+func (h handler) ftpHandler(w http.ResponseWriter, req *http.Request) {
+}

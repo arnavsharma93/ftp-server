@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/anshal21/ftp-server/operator"
-	ftp "github.com/anshal21/ftp-server/v3"
+	ftp "github.com/anshal21/ftp-server/v4"
 )
 
 const (

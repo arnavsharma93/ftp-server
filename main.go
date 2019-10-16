@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/anshal21/ftp-server/operator"
 	ftp "github.com/anshal21/ftp-server/v1"
@@ -85,4 +86,12 @@ func (h handler) ftpHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 // Select
+func timmed(f func(w http.ResponseWriter, req *http.Request)) func(w http.ResponseWriter, req *http.Request) {
+	return func(w http.ResponseWriter, req *http.Request) {
+		start := time.Now()
+		f(w, req)
+		end := time.Now()
+
+		fmt.Printf("Request Time: %v", end.Sub(start))
+	}
 }

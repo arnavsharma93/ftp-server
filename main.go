@@ -86,6 +86,14 @@ func (h handler) ftpHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 // Select
+
+func main() {
+	handler := NewHandler()
+
+	http.HandleFunc("/ftp", handler.ftpHandler)
+	http.ListenAndServe(_serverPort, nil)
+}
+
 func timmed(f func(w http.ResponseWriter, req *http.Request)) func(w http.ResponseWriter, req *http.Request) {
 	return func(w http.ResponseWriter, req *http.Request) {
 		start := time.Now()

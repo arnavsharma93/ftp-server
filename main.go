@@ -53,4 +53,36 @@ func (h handler) ftpHandler(w http.ResponseWriter, req *http.Request) {
 
 	//fmt.Println(operation, dir)
 
+	response := make([]byte, 1024*1024)
+
+	switch operation[0] {
+	case _FTPOperationList:
+		reader, err := h.operator.List(dir[0])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+			return
+		}
+		n, _ := reader.Read(response)
+		w.Write(response[:n])
+
+	case _FTPOperationDelete:
+		err := h.operator.Delete(dir[0])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+			return
+		}
+		w.Write([]byte("RemovedDirectory"))
+
+	case _FTPOperationGet:
+		resp, err := h.operator.Get(dir[0])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+			return
+		}
+		n, _ := resp.Read(response)
+		w.Write(response[:n])
+	}
+}
+
+// Select
 }
